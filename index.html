@@ -1,23 +1,24 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <base href="/#">
-  <title>Manasseh Tek - Cybersecurity Enthusiast</title>
+  <title>Manasseh Tek - Cybersecurity Professional</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
   <style>
     :root {
-      --primary: #000000;
-      --secondary: #00ff00;
-      --text: #ffffff;
-      --background: #111111;
+      --primary: #0a0a0a;
+      --secondary: #00ffcc;
+      --accent: #ff3366;
+      --text: #e6e6e6;
+      --dark-text: #131313;
+      --background: #0c0c0c;
+      --card-bg: rgba(20, 20, 20, 0.7);
+      --gradient: linear-gradient(135deg, #00ffcc, #0088ff);
     }
 
     * {
@@ -28,23 +29,52 @@
     }
 
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: 'Courier New', monospace;
       background: var(--background);
       color: var(--text);
       line-height: 1.6;
       position: relative;
+      overflow-x: hidden;
     }
 
-    .background-image {
-      position: absolute;
+    /* Matrix-style animation */
+    .matrix-bg {
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url("cyberimage.png");
-      background-size: cover;
-      background-position: center;
-      opacity: 0.1;
+      overflow: hidden;
+      z-index: -2;
+    }
+
+    .digit-column {
+      position: absolute;
+      top: -1000px;
+      color: rgba(0, 255, 204, 0.07);
+      font-size: 1.2rem;
+      font-family: monospace;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-1000px);
+      }
+      100% {
+        transform: translateY(3000px);
+      }
+    }
+
+    .grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(rgba(10, 10, 10, 0.7) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(10, 10, 10, 0.7) 1px, transparent 1px);
+      background-size: 30px 30px;
       z-index: -1;
     }
 
@@ -52,16 +82,18 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 2rem;
+      position: relative;
     }
 
     nav {
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(0,0,0,0.9);
+      background: rgba(10, 10, 10, 0.9);
       padding: 1rem 0;
       z-index: 1000;
       backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--secondary);
     }
 
     .nav-content {
@@ -75,23 +107,50 @@
       font-weight: bold;
       color: var(--secondary);
       text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      margin-left: 10px;
+      border: 2px solid var(--secondary);
+      object-fit: cover;
     }
 
     .nav-links {
       display: flex;
       gap: 2rem;
-      transition: all 0.3s ease;
     }
 
     .nav-links a {
       color: var(--text);
       text-decoration: none;
-      transition: color 0.3s;
+      transition: all 0.3s;
       font-weight: 500;
+      position: relative;
+      padding: 0.3rem 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--secondary);
+      transition: width 0.3s;
     }
 
     .nav-links a:hover {
       color: var(--secondary);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
     }
 
     .hero {
@@ -103,66 +162,219 @@
       padding-top: 60px;
     }
 
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, rgba(0, 255, 204, 0.15), transparent 70%);
+      z-index: -1;
+    }
+
     .hero-content {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 4rem;
+      text-align: center;
       padding-top: 2rem;
     }
 
     .hero-text {
-      flex: 1;
-      padding-top: 2rem;
-      text-align: left;
+      max-width: 800px;
     }
 
     .hero-text h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
       margin-bottom: 1rem;
+      color: var(--text);
+      text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+    }
+
+    .hero-text span {
       color: var(--secondary);
     }
 
     .hero-text p {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       opacity: 0.9;
-      max-width: 90%;
       line-height: 1.8;
-      margin-top: 1.5rem;
-      text-align: justify;
+      margin: 1.5rem 0;
     }
 
-    .hero-image {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .profile-container {
-      width: 300px;
-      height: 350px;
-      position: relative;
-      border-radius: 0;
-      background: linear-gradient(45deg, var(--secondary), transparent);
-      padding: 4px;
+    .typewriter {
       overflow: hidden;
+      border-right: 0.15em solid var(--secondary);
+      white-space: nowrap;
+      margin: 0 auto;
+      letter-spacing: 0.15em;
+      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+      max-width: fit-content;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--secondary) }
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
       margin-top: 2rem;
     }
 
-    .profile-image {
-      width: 100%;
-      height: 100%;
-      border-radius: 0;
-      object-fit: contain;
-      background: var(--background);
-      object-position: center top;
+    .btn {
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
     }
 
-    section h2 {
-      font-size: 2rem;
-      margin: 3rem 0 1rem;
+    .btn-primary {
+      background: var(--gradient);
+      color: var(--dark-text);
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+    }
+
+    .btn-secondary {
+      background: transparent;
       color: var(--secondary);
+      border: 2px solid var(--secondary);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    section {
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    .section-heading {
+      position: relative;
+      margin-bottom: 3rem;
       text-align: center;
+    }
+
+    .section-heading h2 {
+      font-size: 2.5rem;
+      color: var(--secondary);
+      display: inline-block;
+      padding-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .section-heading h2::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: var(--gradient);
+    }
+
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .about-text {
+      flex: 2;
+    }
+
+    .about-image {
+      flex: 1;
+      position: relative;
+    }
+
+    .about-box {
+      width: 300px;
+      height: 300px;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .about-box::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      width: calc(100% + 20px);
+      height: calc(100% + 20px);
+      background: var(--gradient);
+      z-index: -1;
+      animation: rotate 10s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .about-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: 4px solid var(--background);
+    }
+
+    .skills-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .skill-box {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      border-left: 3px solid var(--secondary);
+      backdrop-filter: blur(5px);
+      transition: all 0.3s;
+    }
+
+    .skill-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      border-left: 3px solid var(--accent);
+    }
+
+    .skill-box h3 {
+      color: var(--secondary);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .skill-box ul {
+      list-style-type: none;
+    }
+
+    .skill-box li {
+      margin-bottom: 0.5rem;
+      position: relative;
+      padding-left: 25px;
+    }
+
+    .skill-box li::before {
+      content: '>';
+      color: var(--secondary);
+      position: absolute;
+      left: 0;
     }
 
     .projects-grid {
@@ -171,34 +383,71 @@
       gap: 2rem;
     }
 
-    .project-card, .service-card {
-      background: rgba(255,255,255,0.05);
-      padding: 2rem;
+    .project-card {
+      background: var(--card-bg);
       border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+      transition: all 0.3s;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .project-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
       border-color: var(--secondary);
     }
 
-    .project-card h3, .service-card h3 {
-      color: var(--secondary);
-      margin-bottom: 1rem;
+    .project-image {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
     }
 
-    ul {
-      padding-left: 1.5rem;
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.5s;
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.1);
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .project-content h3 {
+      color: var(--secondary);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      background: rgba(0, 255, 204, 0.1);
+      color: var(--secondary);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
     }
 
     .contact-form {
       max-width: 600px;
       margin: 2rem auto;
-      background: rgba(255,255,255,0.05);
-      padding: 2rem;
+      background: var(--card-bg);
+      padding: 2.5rem;
       border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(5px);
     }
 
     .form-group {
@@ -209,16 +458,25 @@
       display: block;
       margin-bottom: 0.5rem;
       font-weight: bold;
+      color: var(--secondary);
     }
 
     .form-group input,
     .form-group textarea {
       width: 100%;
       padding: 0.75rem;
-      background: #1c1c1c;
+      background: rgba(10, 10, 10, 0.8);
       border: 1px solid #333;
       color: var(--text);
       border-radius: 5px;
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--secondary);
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(0, 255, 204, 0.3);
     }
 
     .form-group textarea {
@@ -227,30 +485,59 @@
     }
 
     button[type="submit"] {
-      background: var(--secondary);
-      color: #000;
+      background: var(--gradient);
+      color: var(--dark-text);
       padding: 0.75rem 2rem;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
-      transition: background 0.3s;
+      transition: all 0.3s;
+      width: 100%;
     }
 
     button[type="submit"]:hover {
-      background: #00cc00;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
 
     footer {
-      background: rgba(0,0,0,0.8);
-      padding: 2rem 0;
+      background: rgba(10, 10, 10, 0.9);
+      padding: 3rem 0;
       margin-top: 4rem;
-      text-align: center;
+      border-top: 1px solid var(--secondary);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer-info {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
     }
 
     .social-links {
       display: flex;
-      justify-content: center;
       gap: 1rem;
       margin-top: 1rem;
     }
@@ -258,24 +545,211 @@
     .social-links a {
       color: var(--text);
       font-size: 1.5rem;
-      transition: color 0.3s;
+      transition: all 0.3s;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
     }
 
     .social-links a:hover {
       color: var(--secondary);
+      transform: translateY(-5px);
+      background: rgba(0, 255, 204, 0.1);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Glow Effects */
+    .glow {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: var(--secondary);
+      filter: blur(100px);
+      opacity: 0.1;
+      z-index: -1;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-30px, -30px); }
+    }
+
+    /* Terminal effect */
+    .terminal {
+      background: rgba(15, 15, 15, 0.9);
+      border-radius: 10px;
+      padding: 1.5rem;
+      border: 1px solid var(--secondary);
+      margin-top: 2rem;
+      font-family: 'Courier New', monospace;
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 0.5rem;
+    }
+
+    .terminal-title {
+      margin-left: 1rem;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .dot.red { background: #ff5f56; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #27c93f; }
+
+    .terminal-content {
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    .terminal-line {
+      margin-bottom: 0.5rem;
+      display: flex;
+    }
+
+    .terminal-prompt {
+      color: var(--secondary);
+      margin-right: 0.5rem;
+    }
+
+    /* Cursor blink effect */
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 18px;
+      background: var(--secondary);
+      margin-left: 5px;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      from, to { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    /* Audio equalizer visual */
+    .equalizer {
+      display: flex;
+      align-items: flex-end;
+      height: 40px;
+      gap: 3px;
+      margin-top: 1rem;
+    }
+
+    .eq-bar {
+      width: 4px;
+      background: var(--secondary);
+      border-radius: 3px;
+      animation: equalize 1s ease-in-out infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes equalize {
+      0%, 100% { height: 10px; }
+      50% { height: 40px; }
+    }
+
+    .eq-bar:nth-child(1) { animation-delay: 0.1s; }
+    .eq-bar:nth-child(2) { animation-delay: 0.2s; }
+    .eq-bar:nth-child(3) { animation-delay: 0.3s; }
+    .eq-bar:nth-child(4) { animation-delay: 0.4s; }
+    .eq-bar:nth-child(5) { animation-delay: 0.5s; }
+    .eq-bar:nth-child(6) { animation-delay: 0.6s; }
+    .eq-bar:nth-child(7) { animation-delay: 0.7s; }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+
+      .about-content {
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .about-box {
+        width: 250px;
+        height: 250px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 1rem;
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(10px);
+      }
+
+      .hamburger {
+        display: block;
+        cursor: pointer;
+      }
+
+      .nav-open .nav-links {
+        display: flex;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="background-image"></div>
+  <!-- Matrix-style background -->
+  <div class="matrix-bg" id="matrix-bg"></div>
+  
+  <!-- Grid overlay -->
+  <div class="grid-overlay"></div>
 
   <nav>
     <div class="container nav-content">
-      <a href="#" class="logo">Manasseh Tek</a>
+      <a href="#" class="logo">
+        Manasseh Tek
+        <img src="/api/placeholder/40/40" alt="Logo" class="logo-img">
+      </a>
       <div class="nav-links">
         <a href="#about">About</a>
-        <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
       </div>
     </div>
@@ -284,75 +758,192 @@
   <section id="hero" class="hero">
     <div class="container hero-content">
       <div class="hero-text">
-        <h1>Manasseh Tek - Cybersecurity Enthusiast</h1>
-        <p>I am a Computer Science student passionate about Cybersecurity and System Security. Currently pursuing a Bachelor's degree at St. Paul's University, I aim to apply my skills to safeguard data and systems.</p>
+        <h1 class="typewriter">Manasseh <span>Tek</span></h1>
+        <p>Cybersecurity Enthusiast | Computer Science Student | System Security Specialist</p>
+        <div class="terminal">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <div class="dot red"></div>
+              <div class="dot yellow"></div>
+              <div class="dot green"></div>
+            </div>
+            <div class="terminal-title">manasseh@cybersecurity:~</div>
+          </div>
+          <div class="terminal-content">
+            <div class="terminal-line">
+              <span class="terminal-prompt">$</span>
+              <span>I'm dedicated to protecting digital infrastructures</span>
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-prompt">$</span>
+              <span>and securing systems against threats</span>
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-prompt">$</span>
+              <span class="cursor"></span>
+            </div>
+          </div>
+        </div>
+        <div class="cta-buttons">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-secondary">Contact Me</a>
+        </div>
       </div>
-      <div class="hero-image">
-        <div class="profile-container">
-          <img src="profile.jpg" alt="Manasseh Tek" class="profile-image">
+    </div>
+    <!-- Animated glow effects -->
+    <div class="glow" style="top: 20%; left: 10%;"></div>
+    <div class="glow" style="top: 60%; left: 70%;"></div>
+  </section>
+
+  <section id="about" class="container">
+    <div class="section-heading">
+      <h2>About Me</h2>
+    </div>
+    <div class="about-content">
+      <div class="about-text">
+        <p>I'm a Computer Science student at St. Paul's University with a growing passion for Cybersecurity and System Security. My academic journey has equipped me with a strong foundation in programming, system architecture, and security principles.</p>
+        <p>My goal is to apply my skills in practical environments, contributing to secure digital ecosystems and protecting sensitive data from emerging threats. I'm committed to continuous learning in this ever-evolving field.</p>
+        <p>Beyond technical skills, I bring strong communication abilities, analytical thinking, and a dedication to ethical technology practices that prioritize both security and user privacy.</p>
+        <div class="equalizer">
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+        </div>
+      </div>
+      <div class="about-image">
+        <div class="about-box">
+          <img src="/api/placeholder/300/300" alt="Manasseh Tek" class="about-img">
         </div>
       </div>
     </div>
   </section>
 
-  <section id="about" class="container">
-    <h2>About Me</h2>
-    <p>I'm dedicated to learning and applying the principles of cybersecurity, system security, and ethical technology use. My goal is to continuously grow in these fields and contribute to secure digital environments.</p>
-  </section>
-
-  <section id="projects" class="container">
-    <h2>Projects</h2>
-    <div class="projects-grid">
-      <div class="project-card">
-        <h3>Inventory Management System</h3>
-        <p>Developed a full-featured inventory system using HTML, CSS, JavaScript, PHP, and MySQL. Key features include adding, editing, and deleting products, tracking stock levels and sales, and generating real-time reports.</p>
+  <section id="skills" class="container">
+    <div class="section-heading">
+      <h2>Skills & Expertise</h2>
+    </div>
+    <div class="skills-content">
+      <div class="skill-box" data-aos="fade-up" data-aos-delay="100">
+        <h3>Cybersecurity Focus</h3>
+        <ul>
+          <li>System Security Analysis</li>
+          <li>Data Protection Strategies</li>
+          <li>Secure Documentation</li>
+          <li>Credential Tracking</li>
+          <li>Confidential Communication</li>
+        </ul>
+      </div>
+      <div class="skill-box" data-aos="fade-up" data-aos-delay="200">
+        <h3>Programming Languages</h3>
+        <ul>
+          <li>Python (Flask, Django)</li>
+          <li>PHP, JavaScript</li>
+          <li>HTML, CSS</li>
+          <li>C (Basic Knowledge)</li>
+          <li>Java (Basic Knowledge)</li>
+        </ul>
+      </div>
+      <div class="skill-box" data-aos="fade-up" data-aos-delay="300">
+        <h3>Tools & Technologies</h3>
+        <ul>
+          <li>MySQL Database Management</li>
+          <li>Windows & Linux Systems</li>
+          <li>Command-line Tools (nmap, ping, etc.)</li>
+          <li>Network Analysis</li>
+          <li>Vulnerability Assessment</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <section id="skills" class="container">
-    <h2>Skills</h2>
-    <div class="service-card">
-      <h3>Programming Languages & Tools</h3>
-      <ul>
-        <li>Python (Flask, Django)</li>
-        <li>PHP, JavaScript, HTML, CSS</li>
-        <li>C, Java</li>
-        <li>MySQL Database Management</li>
-        <li>Command-line tools: nmap, ping, netstat</li>
-      </ul>
+  <section id="projects" class="container">
+    <div class="section-heading">
+      <h2>Featured Projects</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="project-image">
+          <img src="/api/placeholder/400/200" alt="Inventory Management System">
+        </div>
+        <div class="project-content">
+          <h3>Inventory Management System</h3>
+          <p>A comprehensive inventory tracking solution with secure authentication, real-time monitoring, and detailed reporting capabilities. Built with security measures to protect sensitive business data.</p>
+          <div class="project-tags">
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">PHP</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="project-image">
+          <img src="/api/placeholder/400/200" alt="Network Security Monitor">
+        </div>
+        <div class="project-content">
+          <h3>Network Security Monitor</h3>
+          <p>A Python-based tool that monitors network traffic, detects unusual patterns, and alerts administrators to potential security breaches. Implements anomaly detection algorithms and logging systems.</p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Network Security</span>
+            <span class="tag">Data Analysis</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="project-image">
+          <img src="/api/placeholder/400/200" alt="Secure File Sharing Portal">
+        </div>
+        <div class="project-content">
+          <h3>Secure File Sharing Portal</h3>
+          <p>A web application enabling encrypted file transfers between authenticated users. Features end-to-end encryption, access controls, and comprehensive audit logging to maintain security compliance.</p>
+          <div class="project-tags">
+            <span class="tag">JavaScript</span>
+            <span class="tag">PHP</span>
+            <span class="tag">Encryption</span>
+            <span class="tag">Authentication</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="project-image">
+          <img src="/api/placeholder/400/200" alt="Password Management System">
+        </div>
+        <div class="project-content">
+          <h3>Password Management System</h3>
+          <p>A secure credential management application that uses strong encryption to store passwords. Includes features for generating secure passwords, analyzing password strength, and detecting compromised credentials.</p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Cryptography</span>
+            <span class="tag">Database Security</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <section id="contact" class="container">
-    <h2>Contact</h2>
-    <form action="https://formspree.io/f/mnqeyknd" method="POST" class="contact-form">
+    <div class="section-heading">
+      <h2>Get In Touch</h2>
+    </div>
+    <form action="https://formspree.io/f/mnqeyknd" method="POST" class="contact-form" data-aos="fade-up">
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" name="name" required>
+        <input type="text" name="name" id="name" required>
       </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" name="email" required>
+        <input type="email" name="email" id="email" required>
       </div>
       <div class="form-group">
-        <label for="message">Message</label>
-        <textarea name="message" required></textarea>
+        <label for="subject">Subject</label>
+        <input type="text" name="subject" id="subject" required>
       </div>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Manasseh Tek. All rights reserved.</p>
-    <div class="social-links">
-      <a href="https://github.com/manassehtek" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/manassehtek/" target="_blank"><i class="fab fa-linkedin"></i></a>
-    </div>
-  </footer>
-
-  <script>
-    AOS.init();
-  </script>
-</body>
-</html>
+      <div class="form-group">
